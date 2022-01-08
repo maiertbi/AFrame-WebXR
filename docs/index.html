@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebXR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="components/rotation.components.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-assets>
+            <img id="space" src="assets/space.jpg">
+            <img id="moon" src="assets/moon.jpg">
+            <img id="earth-texture" src="assets/earth_atmos.jpg">
+            <img id="earth-normal" src="assets/earth_normal.jpg">
+            <a-asset-item id="flat-earth" src="assets/flat_earth/scene.gltf"></a-asset-item>
+            <audio id="space_sound" src="assets/space_sound.mp3"></audio>
+        </a-assets>
+
+        <a-camera id="camera">
+            <a-cursor></a-cursor>
+        </a-camera>
+
+        <a-plane src="#moon" height="25" width="30" rotation="-90 0 0" position="0 0 -10"></a-plane>
+        <a-sky src="#space" rotation="0 -90 0"></a-sky>
+
+        <a-sound src="#space_sound" autoplay="true" position="0 2 5" volume="0"></a-sound>
+        
+        <a-entity light="type: ambient; intensity: 0.6;"></a-entity>
+        <a-entity light="type: directional; intensity: 0.1" position="-1 1 0"></a-entity>
+        
+        <a-entity light="type: spot; angle: 20" position="0 0 -5" rotation="20 0 0"></a-entity>
+        <a-entity light="type: spot; angle: 20" position="-5 0 -5" rotation="20 0 0"></a-entity>
+        <a-entity light="type: spot; angle: 20" position="5 0 -5" rotation="20 0 0"></a-entity>
+
+        <a-box color="#CCC" position="0 0 -5" scale="0.2 0.2 0.2"></a-box>
+        <a-box color="#CCC" position="-5 0 -5" scale="0.2 0.2 0.2"></a-box>
+        <a-box color="#CCC" position="5 0 -5" scale="0.2 0.2 0.2"></a-box>
+        
+
+        <!-- earth Donut -->
+        <a-torus
+            rotation-listener
+            src="#earth-texture" normal-map="#earth-normal"
+            arc="360" 
+            radius="5" radius-tubular="1"
+            scale="0.2 0.2 0.2" position="-5 1.6 -15"
+            segmentsRadial="50" segmentsTubular="50"
+            rotation="0 0 0"
+        ></a-torus>
+
+        <!-- earth normal -->
+        <a-sphere 
+            id="normal"
+            rotation-listener
+            src="#earth-texture" normal-map="#earth-normal" 
+            radius="2" segments-height="53" 
+            scale="0.6 0.6 0.6" position="0 1.6 -15" 
+            rotation="0 0 0"
+        ></a-sphere>
+
+        <!-- earth flat -->
+        <a-gltf-model
+            rotation-listener
+            src="#flat-earth"
+            scale="0.3 0.3 0.3" position="5 1.6 -15"
+            rotation="45 0 0"
+        ></a-gltf-model>
+
+
+
+
+    </a-scene>
+</body>
+</html>
